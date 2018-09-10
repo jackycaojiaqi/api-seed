@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.ClientMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.model.Client">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="client_name" jdbcType="VARCHAR" property="clientName" />
+    <result column="client_country" jdbcType="VARCHAR" property="clientCountry" />
+    <result column="client_city" jdbcType="VARCHAR" property="clientCity" />
+    <result column="client_intention" jdbcType="VARCHAR" property="clientIntention" />
+    <result column="client_intention_machine" jdbcType="VARCHAR" property="clientIntentionMachine" />
+    <result column="close_time" jdbcType="VARCHAR" property="closeTime" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:mysql://116.62.211.128:3306/swekey?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true
+    username: jack
+    password: Caojiaqi1314
+    driver-class-name: com.mysql.jdbc.Driver
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  redis:
+    host: 116.62.211.128
+    port: 6379
+    pool:
+      max-active: 8
+      min-idle: 0
+      max-wait: -1
+      max-idle: 8
+
+
+server:
+  port: 9988
+logging:
+  config: classpath:log4j2.xml
+
+
+
