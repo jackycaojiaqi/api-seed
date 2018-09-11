@@ -1,7 +1,10 @@
 package com.company.project.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
