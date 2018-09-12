@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.model.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_gender" jdbcType="VARCHAR" property="userGender" />
+    <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <result column="user_address" jdbcType="VARCHAR" property="userAddress" />
+    <result column="user_birthday" jdbcType="DATE" property="userBirthday" />
+    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
+
+    <association property="department"
+                 javaType="com.company.project.model.Department">
+      <id property="departmentId" column="department_id" javaType="java.lang.Integer" />
+      <result property="departmentName" column="department_name"
+              javaType="java.lang.String" />
+    </association>
+  </resultMap>
+
+  <!-- get user list with role -->
+  <resultMap type="com.company.project.model.User" id="userRoleList" extends="BaseResultMap">
+    <!-- collection中不是javaType而是ofType,通过property也知道是list，即多个。
+    extends属性，即在父resultMap的基础上再加上子resultMap的结果，在这里即再加上部门的信息。 -->
+    <collection property="roles" ofType="com.company.project.model.Role">
+      <id property="roleId" column="role_id" javaType="java.lang.Integer" />
+      <result property="roleName" column="role_name" javaType="java.lang.String" />
+    </collection>
+  </resultMap>
+
+  <!--查询用户部门  多对一-->
+  <select id="getUserWithDepartment" resultMap="BaseResultMap">
+    select u.*,d.department_name from user u left join department d on u.department_id=d.department_id;
+  </select>
+
+  <!--查询用户角色  一对多-->
+  <select id="getUserWithRole" resultMap="userRoleList" >
+    select u.*,r.* from
+    user u left join user_role ur on u.user_id=ur.user_id
+    left join role r
+    on r.role_id=ur.role_id;
+  </select>
+
+  <!--根据用户名模糊查询-->
+  <select id="getAllUserRoleDepByName" resultMap="BaseResultMap" parameterType="string">
+    <bind name="pattern" value="'%' + _parameter + '%'" />
+    select
+    u.*,r.*,d.* from
+    user u left join user_role ur on u.user_id=ur.user_id
+    left join role r on
+    r.role_id=ur.role_id
+    left join department d on
+
+      u.department_id = d.department_id where u.user_name like  #{pattern}
+
+  </select>
+</mapper>
